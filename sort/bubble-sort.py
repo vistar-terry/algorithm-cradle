@@ -44,6 +44,6 @@ def bubble_sort_ignore_done(our_list):
 
 
 # our_list = [19, 13, 6, 2, 18, 8]
-print("bubble_sort:", timeit.timeit("bubble_sort([19, 13, 6, 2, 18, 8])", "from __main__ import bubble_sort", number=100000))
-print("bubble_sort_check_swapped: ", timeit.timeit("bubble_sort_check_swapped([19, 13, 6, 2, 18, 8])", "from __main__ import bubble_sort_check_swapped", number=100000))
-print("bubble_sort_ignore_done: ", timeit.timeit("bubble_sort_ignore_done([19, 13, 6, 2, 18, 8])", "from __main__ import bubble_sort_ignore_done", number=100000))
+print("bubble_sort:", timeit.timeit("bubble_sort([19, 13, 6, 2, 18, 8])", "from __main__ import bubble_sort", number=10000))
+print("bubble_sort_check_swapped: ", timeit.timeit("bubble_sort_check_swapped([19, 13, 6, 2, 18, 8])", "from __main__ import bubble_sort_check_swapped", number=10000))
+print("bubble_sort_ignore_done: ", timeit.timeit("bubble_sort_ignore_done([19, 13, 6, 2, 18, 8])", "from __main__ import bubble_sort_ignore_done", number=10000))
