@@ -1,3 +1,7 @@
+# 参考：
+# https://stackabuse.com/bubble-sort-in-python/
+# https://t.zsxq.com/nEU3VJ6
+
 import timeit
 
 def bubble_sort(our_list):
@@ -9,7 +13,7 @@ def bubble_sort(our_list):
                 # Swap
                 our_list[j], our_list[j+1] = our_list[j+1], our_list[j]
 
-
+# 优化一：添加有序标记（has_swapped），当没有元素交换时跳出循环
 def bubble_sort_check_swapped(our_list):
     # We want to stop passing through the list
     # as soon as we pass through without swapping any elements
@@ -23,7 +27,7 @@ def bubble_sort_check_swapped(our_list):
                 our_list[i], our_list[i+1] = our_list[i+1], our_list[i]
                 has_swapped = True
 
-
+# 优化二：记录有序/无序边界，已有序的元素不需要再进行操作，因此每轮比较的数列长度会减小
 def bubble_sort_ignore_done(our_list):
     # With each consecutive iteration
     # we can look at one less element than before.
