@@ -1,3 +1,6 @@
+# Filename : bubble_sort.py
+# Author by : Vistar
+
 # 参考：
 # https://stackabuse.com/bubble-sort-in-python/
 # https://t.zsxq.com/nEU3VJ6
