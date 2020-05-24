@@ -46,55 +46,38 @@ def selection_sort_test(our_list):
     return our_list
 
 
-# 找到有如下效率优化，但实际效率却低于未优化
-def selection_sort2(x):
-    i = 0
-    '''
-    1、最小值更新的位置是：i
-    2、最大值更新的位置是：len(list)-1-i
-    3、整个list的索引的值最大是len(list)-1;因为索引从0开始
-    '''
-    while i <= len(x) // 2:
-        minindex = i
-        maxindex = i
-        j = i + 1
-        # 遍历后续位置，更新最大值和最小值的位置
-        while j < len(x)-i:
-            if x[minindex] > x[j]:
-                minindex = j
-            if x[maxindex] < x[j]:
-                maxindex = j
-            j += 1
-        # 如果最小值与最大值相同，说明剩下的数字都相同，可以直接结束
-        if x[minindex] == x[maxindex]:
-            return x
-        # 如果最小值的索引位置不是初始位置，则更新最小值到初始的位置
-        if minindex != i:
-            x[i], x[minindex] = x[minindex], x[i]
-        # 最大值和最小值的索引位置成对出现，
-        # 如果最大值的索引位置不是总的索引值减去最小值的索引，则更新最大值到对应的索引位置
-        if maxindex != len(x)-1-i:
-            # 如果初始索引的位置就是最大值时，先交换minindex和i之后，最大值的下标变成了minindex
-            if maxindex != i:
-                x[len(x)-1-i], x[maxindex] = x[maxindex], x[len(x)-1-i]
-            # 应该交换minindex和n-i-1，而不是maxindex和n-i-1
-            else:
-                x[len(x)-1-i], x[minindex] = x[minindex], x[len(x)-1-i]
-        i += 1
-    return x
+# 效率优化，找到最小和最大值，分别放在两端
+def selection_sort_better(our_list):
+    n = len(our_list)
+    for i in range(n//2):
+        min_mark = i
+        max_mark = n-i-1
+        for j in range(i+1, n-i):
+            if our_list[j] < our_list[min_mark]:
+                min_mark = j
+        if min_mark != i:
+            our_list[i], our_list[min_mark] = our_list[min_mark], our_list[i]
 
+        for j in range(n-i-2, i, -1):
+            if our_list[j] > our_list[max_mark]:
+                max_mark = j
+        if max_mark != n-i-1:
+            our_list[n-i-1], our_list[max_mark] = our_list[max_mark], our_list[n-i-1]
+    return our_list
+            
 
 if __name__ == "__main__":
     # 原有思路测试
-    # our_list = [12, 4, 15, 7, 8, 26, 16, 25, 8, 85]
+    our_list = [12, 4, 15, 7, 8, 26, 16, 25, 8, 85]
     # 验证不稳定性
-    our_list = [(1, 4), (2, 4), (3, 2), (4, 5)]
+    # our_list = [(1, 4), (2, 4), (3, 2), (4, 5)]
 
     print("unsort list:", our_list)
-    print("sorted list:", selection_sort_test(our_list))
+    print("sorted list:", selection_sort(our_list))
 
     # 验证效率优化
-    # print("selection_sort:", timeit.timeit(
-    #     "selection_sort([12,4,15,7,8,26,16,25,8,85])", "from __main__ import selection_sort", number=10000))
-    # print("selection_sort2:", timeit.timeit(
-    #     "selection_sort2([12,4,15,7,8,26,16,25,8,85])", "from __main__ import selection_sort2", number=10000))
+    print("selection_sort:", timeit.timeit(
+        "selection_sort([12,4,15,7,8,26,16,25,8,85])", "from __main__ import selection_sort", number=1000000))
+    print("selection_sort_better:", timeit.timeit(
+        "selection_sort_better([12,4,15,7,8,26,16,25,8,85])", "from __main__ import selection_sort_better", number=1000000))
+
