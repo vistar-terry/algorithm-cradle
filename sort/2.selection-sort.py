@@ -1,5 +1,6 @@
-# Filename : selection_sort.py
-# Author by : Vistar
+# @Filename :   selection_sort.py
+# @Author :     Vistar
+# @Language :   Python 3.7.7
 
 # 选择排序思想：不断选择最小值放到最前面（升序）
 
