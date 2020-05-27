@@ -1,3 +1,8 @@
+# @Filename :   hailstone.py
+# @Author :     Vistar
+# @Language :   Python 3.7.7
+
+
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -62,7 +67,7 @@ def plot(n_size):
     plt.ioff()                 # 关闭画图的窗口
 
 # 实时绘制Hailstone序列长度点图
-def hailstone_point(n):
+def hailstone_drop(n):
     # x = [n for n in range(n)]
     # y = [hailstone(i) for i in x]
     x = []
@@ -76,19 +81,20 @@ def hailstone_point(n):
         plt.pause(0.1) 
 
 # 直接绘制点图 
-def hailstone_pot(n):
-    x = [n for n in range(1000000,n)]
+def hailstone_spot(n):
+    x = [n for n in range(n)]
     y = [hailstone(i) for i in x] 
-    plt.plot(x, y)
+    plt.scatter(x, y)
     plt.xticks(np.arange(min(x), max(x)+1, 1000))
     plt.show()
 
 
 if __name__ == '__main__':
+    # 将结果输出到文件
     # f = open('hailstone.txt', 'a')
     # for i in range(2000):
     #     f.write(str(hailstone(i)) + '\n')
-    hailstone_pot(1001105)
+    hailstone_spot(10000)
 
 
 
