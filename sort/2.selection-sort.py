@@ -69,12 +69,12 @@ def selection_sort_better(our_list):
 
 if __name__ == "__main__":
     # 原有思路测试
-    our_list = [12, 4, 15, 7, 8, 26, 16, 25, 8, 85]
+    # our_list = [12, 4, 15, 7, 8, 26, 16, 25, 8, 85]
     # 验证不稳定性
     # our_list = [(1, 4), (2, 4), (3, 2), (4, 5)]
 
-    print("unsort list:", our_list)
-    print("sorted list:", selection_sort(our_list))
+    # print("unsort list:", our_list)
+    # print("sorted list:", selection_sort_test(our_list))
 
     # 验证效率优化
     print("selection_sort:", timeit.timeit(
