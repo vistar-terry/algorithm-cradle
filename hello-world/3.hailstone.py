@@ -23,7 +23,7 @@ def Hailstone(n):
 def recursive_hailstone(hailstone_list):
     """
     hailstone(n)序列求解，递归算法
-    :param hailstone_list: 这里传入的是列表格式，比如[6]，计算列表末尾的Hailstone序列
+    hailstone_list: 这里传入的是列表格式，比如[6]，计算列表末尾的Hailstone序列
     """
     n = hailstone_list[-1]
     if n <= 1:
