@@ -2,7 +2,7 @@
 # @Author :     Vistar
 # @Language :   Python 3.7.7
 
-def kk(J, S):
+def numJewelsInStones(J, S):
     if not J or not S:
         return 
     hashmap={}
@@ -14,7 +14,7 @@ def kk(J, S):
             result += 1
     return result
 
-def jj(J, S):
+def numJewelsInStones_1(J, S):
     s_set = set(S)
     save_dict = dict(zip(s_set, [S.count(s) for s in s_set]))
     return sum([save_dict.get(j, 0) for j in J])
@@ -22,4 +22,4 @@ def jj(J, S):
 
 J = "aA"
 S = "aAAbbbb"
-print(jj(J,S))
+print(numJewelsInStones(J,S))
