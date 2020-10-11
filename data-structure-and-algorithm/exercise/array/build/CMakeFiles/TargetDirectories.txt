@@ -1,0 +1,3 @@
+/home/vistar/Desktop/algorithm-cradle/data-structure-and-algorithm/exercise/array/build/CMakeFiles/rebuild_cache.dir
+/home/vistar/Desktop/algorithm-cradle/data-structure-and-algorithm/exercise/array/build/CMakeFiles/edit_cache.dir
+/home/vistar/Desktop/algorithm-cradle/data-structure-and-algorithm/exercise/array/build/CMakeFiles/array.dir
