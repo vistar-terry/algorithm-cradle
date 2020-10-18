@@ -6,11 +6,12 @@ struct Table{
     int size;       //记录顺序表分配的存储容量
 };
 
-int main(void)
-{   
-    struct Table linklist;
-    linklist.length = 12;
-    printf("hello CMake!\n");
-    printf("%d", linklist.length); 
+int main(int argc, char* argv[]){
+    int i = 0;
+    int arr[3] = {0};
+    for(; i<=3; i++){
+        arr[i] = 0;
+        printf("hello world\n");
+    }
     return 0;
 }
