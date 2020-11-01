@@ -1,0 +1,14 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/thz/Desktop/algorithm-cradle/data-structure-and-algorithm/exercise/linklist/linklist.c
+stdio.h
+-
+stdlib.h
+-
+

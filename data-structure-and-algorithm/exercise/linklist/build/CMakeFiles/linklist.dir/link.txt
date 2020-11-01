@@ -1,0 +1,1 @@
+/usr/bin/cc    CMakeFiles/linklist.dir/linklist.c.o  -o linklist 
