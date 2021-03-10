@@ -1,3 +1,3 @@
 # algorithm-cradle
 
-algorithms with python.
+algorithms learning.
