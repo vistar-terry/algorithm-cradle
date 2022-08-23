@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/home/thz/Desktop/algorithm-cradle/data-structure-and-algorithm/exercise/linklist/linklist.c" "/home/thz/Desktop/algorithm-cradle/data-structure-and-algorithm/exercise/linklist/build/CMakeFiles/linklist.dir/linklist.c.o"
+  "/home/vistar/Desktop/algorithm-cradle/data-structure-and-algorithm/exercise/linklist/linklist.c" "/home/vistar/Desktop/algorithm-cradle/data-structure-and-algorithm/exercise/linklist/build/CMakeFiles/linklist.dir/linklist.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 
