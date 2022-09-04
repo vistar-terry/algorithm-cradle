@@ -63,36 +63,58 @@ bool delete_value(node* p_head, int del);
  * @brief: 按值查找元素
  * @param[in] p_head: 要执行查找操作的链表头指针
  * @param[in] value: 要查找的值
- * @return int: 返回第一个找到的节点位置, 找不到返回-1
+ * @param[out] index: 返回第一个找到的节点位置, 找不到返回-1
+ * @return bool: 执行结果, true: 存在, false: 不存在/查找失败
  */
-int find_first(node* p_head, int value);
+bool find_first(node* p_head, int value, int* index);
 
 /**
  * @brief: 按值查找元素
  * @param[in] p_head: 要执行查找操作的链表头指针
  * @param[in] value: 要查找的值
- * @return int: 返回最后一个找到的节点位置, 找不到返回-1
+ * @param[out] index: 返回第一个找到的节点位置, 找不到返回-1
+ * @return bool: 执行结果, true: 存在, false: 不存在/查找失败
  */
-int find_last(node* p_head, int value);
+bool find_last(node* p_head, int value, int* index);
 
 /**
  * @brief: 按值查找元素
  * @param[in] p_head: 要执行查找操作的链表头指针
  * @param[in] value: 要查找的值
- * @return array: 返回存储所有找到的节点位置的数组, 找不到返回空数组
+ * @param[out] p_result: 存储所有找到的节点位置的数组, 找不到返回空数组
+ * @return bool: 执行结果, true: 存在, false: 不存在/查找失败
  */
-array* find_all(node* p_head, int value);
+bool find_all(node* p_head, int value, array* p_result);
 
 /**
  * @brief: 获取链表大小
  * @param[in] p_head: 要执行操作的链表头指针
- * @return int: 链表大小
+ * @param[out] size: 链表大小
+ * @return bool: 执行结果, true: 成功, false: 失败
  */
-int size(node* p_head);
+bool size(node* p_head, int* size);
 
-int get_value(node* p_head, int index);
+/**
+ * @brief: 获得节点的值
+ * @param[in] p_head: 要执行操作的链表头指针
+ * @param[in] index: 节点索引
+ * @param[out] value: 节点的值
+ * @return bool: 执行结果, true: 成功, false: 失败
+ */
+bool get_value(node* p_head, int index, int* value);
 
-node* get_ptr(node* p_head, int index);
+/**
+ * @brief: 链表判空
+ * @param[] p_head: 要执行操作的链表头指针
+ * @return bool: 执行结果, true: 链表为空, false: 链表非空
+ */
+bool empty(node* p_head);
+
+
+void destory(node* p_head);
+
+bool clear(node* p_head);
+
 
 // 更新结点的函数，newElem为新的数据域的值
 node* amendElem(node* p_head, int add, int newElem);
@@ -108,27 +130,27 @@ int main()
         printf("初始化无头空链表: ");
         node* p_head = initial_nohead_null();
         display(p_head);
-        printf("address: %p\n", p_head);
+        printf("address: %p\n\n", p_head);
     }
 
     {       
         printf("初始化有头空链表: ");
         node* p_head = initial_head_null();
         display(p_head);
-        printf("address: %p\n", p_head);
+        printf("address: %p\n\n", p_head);
     }
 
     {
-        printf("初始化有头非空链表(arglist，尾插): ");
+        printf("初始化有头非空链表(arglist, 尾插): ");
         node* p_head = initial_head_arglist_h(4, 7, 9, 90, 89);
         display(p_head);
-        printf("address: %p\n", p_head);
+        printf("address: %p\n\n", p_head);
     }
 
     {
-        printf("初始化有头非空链表(array，头插): ");
-        int data[] = {7, 9, 90, 89, 6, 88, 89};
-        node* p_head = initial_head_array_h(6, data);
+        printf("初始化有头非空链表(array, 头插): ");
+        int data[] = {7, 88, 9, 90, 89, 6, 88, 89};
+        node* p_head = initial_head_array_t(8, data);
         display(p_head);
         printf("address: %p\n", p_head);
 
@@ -136,27 +158,50 @@ int main()
         insert_pos(p_head, 3, 88);
         display(p_head);
 
-        printf("delete_index(1): ");
-        delete_index(p_head, 1);
+        printf("delete_index(0): ");
+        delete_index(p_head, 0);
         display(p_head);
 
         printf("delete_value(90): ");
         delete_value(p_head, 90);
         display(p_head);
 
-        int index = find_first(p_head, 88);
-        printf("find_first(88): %d\n", index);
+        int index;
+        find_first(p_head, 888, &index);
+        printf("find_first(888): %d\n", index);
 
-        index = find_last(p_head, 88);
+        find_last(p_head, 88, &index);
         printf("find_last(88): %d\n", index);
 
-        array* p_find_result = find_all(p_head, 88);
-        printf("find_all(88): [ ");
-        for (int i = 0; i < p_find_result->size; i++)
+        array p_find_result;
+        if (find_all(p_head, 88, &p_find_result))
         {
-            printf("%d ", p_find_result->array[i]);
+            printf("find_all(88): [ ");
+            for (int i = 0; i < p_find_result.size; i++)
+            {
+                printf("%d ", p_find_result.array[i]);
+            }
+            printf("]\n");
         }
-        printf("]\n");
+
+        int list_size;
+        size(p_head, &list_size);
+        printf("size of list: %d\n", list_size);
+
+        int value;
+        if (get_value(p_head, 5, &value))
+        {
+            printf("value: %d\n", value);
+        }
+        else
+        {
+            printf("no that node.\n");
+        }
+
+        printf("p_head_p: %p, NULL: %s", p_head, p_head==NULL?"true\n":"false\n");
+        destory(p_head);
+        printf("p_head_b: %p, NULL: %s", p_head, p_head==NULL?"true\n":"false\n");
+        display(p_head);
     }
 
 
@@ -310,13 +355,14 @@ bool insert_pos(node* p_head, int pos, int data)
     // 向链表中插入结点
     p_new->next = p_tmp->next;
     p_tmp->next = p_new;
+    p_head->data++;
     
     return true;
 }
 
 bool delete_index(node* p_head, int index)
 {
-    if (p_head == NULL || index > p_head->data)
+    if (empty(p_head) || index > p_head->data)
     {
         printf("没有该结点\n");
         return false;
@@ -331,6 +377,7 @@ bool delete_index(node* p_head, int index)
 
     node* p_del = p_pre->next; // 单独设置一个指针指向被删除结点，以防丢失
     p_pre->next = p_del->next; // 删除某个结点的方法就是更改前一个结点的指针域
+    p_head->data--;
     free(p_del);               // 手动释放该结点，防止内存泄漏
 
     return true;
@@ -338,7 +385,7 @@ bool delete_index(node* p_head, int index)
 
 bool delete_value(node* p_head, int del)
 {
-    if (p_head == NULL || p_head->next == NULL)
+    if (empty(p_head))
     {
         printf("链表为空\n");
         return false;
@@ -371,13 +418,21 @@ bool delete_value(node* p_head, int del)
         p_pre->next = p_del->next;
         free(p_del);
         p_del = p_pre->next;
+        p_head->data--;
     }
 
     return true;
 }
 
-int find_first(node* p_head, int value)
+bool find_first(node* p_head, int value, int* index)
 {
+    if (empty(p_head))
+    {
+        printf("链表为空\n");
+        *index = -1;
+        return false;
+    }
+
     node* p_tmp = p_head;
     int i = 0;
     while (p_tmp->next)
@@ -385,36 +440,58 @@ int find_first(node* p_head, int value)
         p_tmp = p_tmp->next;
         if (p_tmp->data == value)
         {
-            return i;
+            *index = i;
+            return true;
         }
         i++;
     }
-    return -1;
+    *index = -1;
+    return false;
 }
 
-int find_last(node* p_head, int value)
+bool find_last(node* p_head, int value, int* index)
 {
+    *index = -1;
+    
+    if (empty(p_head))
+    {
+        printf("链表为空\n");
+        return false;
+    }
+
     node* p_tmp = p_head;
     int i = 0;
-    int index = -1;
     while (p_tmp->next)
     {
         p_tmp = p_tmp->next;
         if (p_tmp->data == value)
         {
-            index = i;
+            *index = i;
         }
         i++;
     }
 
-    return index;
+    if (*index == -1)
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
 }
 
-array* find_all(node* p_head, int value)
+bool find_all(node* p_head, int value, array* p_result)
 {
+    if (empty(p_head))
+    {
+        printf("链表为空\n");
+        p_result->size = 0;
+        return false;
+    }
+
     node* p_tmp = p_head;
     int* p_array = (int*)malloc(sizeof(int) * p_tmp->data);
-    // int int_arr[p_tmp->data];
 
     int i = 0;
     int size = 0;
@@ -430,18 +507,86 @@ array* find_all(node* p_head, int value)
         i++;
     }
 
-    array* p_find_result = (array*)malloc(sizeof(array));
-    p_find_result->array = (int*)malloc(sizeof(int) * size);
-    for (int i = 0; i < size; i++)
+    p_result->size = size;
+
+    if (size == 0)
     {
-        p_find_result->array[i] = p_array[i];
+        return false;
     }
 
-    p_find_result->size = size;
+    p_result->array = (int*)malloc(sizeof(int) * size);
+    for (int i = 0; i < size; i++)
+    {
+        p_result->array[i] = p_array[i];
+    }
+
     free(p_array);
 
-    return p_find_result;
+    return true;
 }
+
+bool size(node* p_head, int* size)
+{
+    if (p_head == NULL)
+    {
+        return false;
+    }
+
+    *size = p_head->data;
+
+    return true;
+}
+
+bool get_value(node* p_head, int index, int* value)
+{
+    if (p_head == NULL || p_head->next == NULL)
+    {
+        printf("链表为空\n");
+        return false;
+    }
+
+    node* p_tmp = p_head;
+    for (int i = 0; i < p_head->data; i++)
+    {
+        p_tmp = p_tmp->next;
+        if (i == index)
+        {
+            *value = p_tmp->data;
+            return true;
+        }
+    }
+
+    return false;
+}
+
+bool empty(node* p_head)
+{
+    if (p_head == NULL || p_head->next == NULL)
+    {
+        return true;
+    }
+
+    return false;
+}
+
+void destory(node* p_head)
+{
+    if (p_head == NULL)
+    {
+        return;
+    }
+
+    node* p_tmp = p_head;
+    while (p_head != NULL)
+    {
+        p_head = p_head->next;
+        free(p_tmp);
+        p_tmp = p_head;
+        printf("p_head: %p\n", p_head);
+    }
+    printf("p_head: %p, NULL: %s", p_head, p_head==NULL?"true\n":"false\n");
+}
+
 
 node* amendElem(node* p_head, int add, int newElem)
 {
@@ -468,7 +613,7 @@ void display(node* p_head)
     node* p_tmp = p_head; // 将temp指针重新指向头结点
 
     // 只要temp指针指向的结点的next不是Null，就执行输出语句。
-    while (p_tmp->next)
+    while (p_tmp->next != NULL)
     {
         p_tmp = p_tmp->next;
         printf("%d ", p_tmp->data);
