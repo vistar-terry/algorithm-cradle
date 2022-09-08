@@ -111,7 +111,7 @@ bool get_value(node* p_head, int index, int* value);
 bool empty(node* p_head);
 
 
-void destory(node* p_head);
+void destory(node** p_head);
 
 bool clear(node* p_head);
 
@@ -198,9 +198,11 @@ int main()
             printf("no that node.\n");
         }
 
-        printf("p_head_p: %p, NULL: %s", p_head, p_head==NULL?"true\n":"false\n");
-        destory(p_head);
-        printf("p_head_b: %p, NULL: %s", p_head, p_head==NULL?"true\n":"false\n");
+        printf("p_head_p: %p, NULL: %slist: ", p_head, p_head==NULL?"true\n":"false\n");
+        display(p_head);
+        destory(&p_head);
+        printf("p_head_b: %p, NULL: %slist: ", p_head, p_head==NULL?"true\n":"false\n");
+        destory(&p_head);
         display(p_head);
     }
 
@@ -569,8 +571,9 @@ bool empty(node* p_head)
     return false;
 }
 
-void destory(node* p_head)
+void destory(node** p_head_addr)
 {
+    node* p_head = *p_head_addr;
     if (p_head == NULL)
     {
         return;
@@ -582,9 +585,54 @@ void destory(node* p_head)
         p_head = p_head->next;
         free(p_tmp);
         p_tmp = p_head;
-        printf("p_head: %p\n", p_head);
     }
-    printf("p_head: %p, NULL: %s", p_head, p_head==NULL?"true\n":"false\n");
+    *p_head_addr = NULL;
+}
+
+// void destory(node* p_head)
+// {
+//     if (p_head == NULL)
+//     {
+//         return;
+//     }
+
+//     node* p_tmp = p_head->next;
+//     while (p_head->next != NULL)
+//     {
+//         p_head->next = p_tmp->next;
+//         free(p_tmp);
+//         p_tmp = p_tmp->next;
+//         printf("p_tmp: %p\n", p_tmp);
+//     }
+//     printf("p_head: %p\n", p_head);
+//     free(p_head);
+//     p_head = NULL;
+//     printf("p_head: %p, NULL: %s", p_head, p_head==NULL?"true\n":"false\n");
+// }
+
+bool clear(node* p_head)
+{
+    if (p_head == NULL)
+    {
+        return false;
+    }
+    static int i = 0;
+    printf("\n%d\n", i++);
+    node* p_cur = p_head->next;
+    printf("p_cur: %p\n", p_cur);
+    while (p_cur != NULL)
+    {
+        node* p_next = p_cur->next;
+        free(p_cur);
+        p_cur = p_next;
+        printf("p_cur: %p\n", p_cur);
+    }
+
+    free(p_head);
+    p_head = NULL;
+    printf("p_head: %p\n", p_head);
+
+    return true;
 }
 
 
