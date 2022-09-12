@@ -4,7 +4,7 @@
  * @author: 万俟淋曦(1055311345@qq.com)
  * @date: 2022-08-13 12:27:24
  * @modifier: 万俟淋曦(1055311345@qq.com)
- * @date: 2022-08-27 22:33:15
+ * @date: 2022-09-12 16:24:16
  */
 
 #include <stdio.h>
@@ -105,23 +105,31 @@ bool get_value(node* p_head, int index, int* value);
 
 /**
  * @brief: 链表判空
- * @param[] p_head: 要执行操作的链表头指针
+ * @param[in] p_head: 要执行操作的链表头指针
  * @return bool: 执行结果, true: 链表为空, false: 链表非空
  */
 bool empty(node* p_head);
 
+/**
+ * @brief: 销毁链表
+ * @param[in] p_head_addr: 要执行操作的链表头指针的地址
+ */
+void destory(node** p_head_addr);
 
-void destory(node** p_head);
+/**
+ * @brief: 清空链表
+ * @param[in] p_head_addr: 要执行操作的链表头指针的地址
+ * @return bool: 执行结果, true: 成功, false: 失败
+ */
+bool clear(node** p_head_addr);
 
-bool clear(node* p_head);
-
-
-// 更新结点的函数，newElem为新的数据域的值
-node* amendElem(node* p_head, int add, int newElem);
-
-
-
+/**
+ * @brief: 打印链表数据
+ * @param[in] p_head: 要执行操作的链表头指针
+ */
 void display(node* p_head);
+
+
 
 int main()
 {
@@ -198,39 +206,17 @@ int main()
             printf("no that node.\n");
         }
 
-        printf("p_head_p: %p, NULL: %slist: ", p_head, p_head==NULL?"true\n":"false\n");
+        printf("clear: ");
+        clear(&p_head);
+        display(p_head);
+
+        printf("before destory: %p, NULL: %slist: ", p_head, p_head==NULL?"true\n":"false\n");
         display(p_head);
         destory(&p_head);
-        printf("p_head_b: %p, NULL: %slist: ", p_head, p_head==NULL?"true\n":"false\n");
+        printf("after destory: %p, NULL: %slist: ", p_head, p_head==NULL?"true\n":"false\n");
         destory(&p_head);
         display(p_head);
     }
-
-
-    // int num, pos;
-    // printf("输入插入元素：");
-    // scanf("%d", &num);
-    // printf("输入插入位置：");
-    // scanf("%d", &pos);
-    // printf("在位置%d插入元素%d：", pos, num);
-    // p_head = insertElem(p_head, num, pos);
-    // display(p_head);
-
-    // printf("删除元素3:\n");
-    // p_head = delElem(p_head, 3);
-    // display(p_head);
-
-    // printf("查找元素2的位置为：\n");
-    // int address = selectElem(p_head, 2);
-    // if (address == -1) {
-    //     printf("没有该元素");
-    // }
-    // else {
-    //     printf("元素2的位置为：%d\n", address);
-    // }
-    // printf("更改第3的位置上的数据为7:\n");
-    // p_head = amendElem(p_head, 3, 7);
-    // display(p_head);
 
     return 0;
 }
@@ -589,64 +575,26 @@ void destory(node** p_head_addr)
     *p_head_addr = NULL;
 }
 
-// void destory(node* p_head)
-// {
-//     if (p_head == NULL)
-//     {
-//         return;
-//     }
-
-//     node* p_tmp = p_head->next;
-//     while (p_head->next != NULL)
-//     {
-//         p_head->next = p_tmp->next;
-//         free(p_tmp);
-//         p_tmp = p_tmp->next;
-//         printf("p_tmp: %p\n", p_tmp);
-//     }
-//     printf("p_head: %p\n", p_head);
-//     free(p_head);
-//     p_head = NULL;
-//     printf("p_head: %p, NULL: %s", p_head, p_head==NULL?"true\n":"false\n");
-// }
-
-bool clear(node* p_head)
+bool clear(node** p_head_addr)
 {
+    node* p_head = *p_head_addr;
     if (p_head == NULL)
     {
         return false;
     }
-    static int i = 0;
-    printf("\n%d\n", i++);
+
     node* p_cur = p_head->next;
-    printf("p_cur: %p\n", p_cur);
+    p_head->next = NULL;
+    p_head->data = 0;
+
     while (p_cur != NULL)
     {
         node* p_next = p_cur->next;
         free(p_cur);
         p_cur = p_next;
-        printf("p_cur: %p\n", p_cur);
     }
-
-    free(p_head);
-    p_head = NULL;
-    printf("p_head: %p\n", p_head);
 
     return true;
-}
-
-
-node* amendElem(node* p_head, int add, int newElem)
-{
-    node* p_tmp = p_head;
-    p_tmp = p_tmp->next; // tamp指向首元结点
-    // temp指向被删除结点
-    for (int i = 1; i < add; i++)
-    {
-        p_tmp = p_tmp->next;
-    }
-    p_tmp->data = newElem;
-    return p_head;
 }
 
 void display(node* p_head)
