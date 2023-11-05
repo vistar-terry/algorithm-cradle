@@ -6,9 +6,13 @@
 
 #IncludeRegexTransform: 
 
-/home/thz/Desktop/algorithm-cradle/data-structure-and-algorithm/exercise/linklist/linklist.c
+/home/vistar/Desktop/algorithm-cradle/data-structure-and-algorithm/exercise/linklist/linklist.c
 stdio.h
 -
 stdlib.h
+-
+stdarg.h
+-
+stdbool.h
 -
 
